@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DepoimentoService {
 
@@ -56,5 +58,9 @@ public class DepoimentoService {
 
         depoimento.excluir();
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new DadosDetalhamentoDepoimento(depoimento));
+    }
+
+    public ResponseEntity<List<Depoimento>> buscarTresAleatorios() {
+        return ResponseEntity.status(HttpStatus.OK).body(depoimentoRepository.buscarDepoimentosAleatorios());
     }
 }
