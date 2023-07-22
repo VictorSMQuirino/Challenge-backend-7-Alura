@@ -13,4 +13,6 @@ public interface DepoimentoRepository extends JpaRepository<Depoimento, Long> {
 
     @Query(value = "SELECT * FROM depoimentos ORDER BY RANDOM() LIMIT 3", nativeQuery = true)
     List<Depoimento> buscarDepoimentosAleatorios();
+
+    boolean existsByIdAndAtivoTrue(Long id);
 }
