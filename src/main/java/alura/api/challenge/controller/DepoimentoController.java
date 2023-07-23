@@ -2,7 +2,6 @@ package alura.api.challenge.controller;
 
 import alura.api.challenge.domain.dto.DadosAtualizacaoDepoimento;
 import alura.api.challenge.domain.dto.DadosCadastroDepoimento;
-import alura.api.challenge.domain.dto.DadosDetalhamentoDepoimento;
 import alura.api.challenge.domain.model.Depoimento;
 import alura.api.challenge.service.DepoimentoService;
 import jakarta.transaction.Transactional;
