@@ -32,18 +32,12 @@ public class DepoimentoService {
     }
 
     public ResponseEntity buscarPorId(Long id) {
-        if(!depoimentoRepository.existsByIdAndAtivoTrue(id)){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Depoimento não encontrado!");
-        }
         var depoimento = depoimentoRepository.getReferenceById(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(new DadosDetalhamentoDepoimento(depoimento));
     }
 
     public ResponseEntity atualizar(DadosAtualizacaoDepoimento dados) {
-        if(!depoimentoRepository.existsByIdAndAtivoTrue(dados.id())){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Depoimento não encontrado!");
-        }
         var depoimento = depoimentoRepository.getReferenceById(dados.id());
 
         depoimento.atualizar(dados);
@@ -51,9 +45,6 @@ public class DepoimentoService {
     }
 
     public ResponseEntity excluir(Long id) {
-        if(!depoimentoRepository.existsByIdAndAtivoTrue(id)){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Depoimento não encontrado!");
-        }
         var depoimento = depoimentoRepository.getReferenceById(id);
 
         depoimento.excluir();
