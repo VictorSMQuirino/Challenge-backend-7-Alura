@@ -32,7 +32,7 @@ public class DepoimentoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity buscar(@PathVariable Long id){
+    public ResponseEntity detalhar(@PathVariable Long id){
         return depoimentoService.buscarPorId(id);
     }
 
