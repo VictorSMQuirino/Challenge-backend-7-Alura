@@ -4,6 +4,7 @@ import alura.api.challenge.domain.dto.DadosAtualizacaoDestino;
 import alura.api.challenge.domain.dto.DadosCadastroDestino;
 import alura.api.challenge.domain.dto.DadosDetalhamentoDestino;
 import alura.api.challenge.domain.model.Destino;
+import alura.api.challenge.infra.exception.BuscaVaziaException;
 import alura.api.challenge.infra.exception.RegistroInativoException;
 import alura.api.challenge.repository.DestinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,14 @@ public class DestinoService {
         return ResponseEntity.status(HttpStatus.CREATED).body(new DadosDetalhamentoDestino(destino));
     }
 
-    public ResponseEntity<Page<Destino>> listar(Pageable page) {
+    public ResponseEntity<Page<Destino>> listar(Pageable page, String busca) {
+        if(busca != null){
+            var destinos = destinoRepository.findAllByNomeContainingAndAtivoTrue(busca, page);
+            if(destinos.isEmpty()){
+                throw new BuscaVaziaException("Nenhum destino encontrado.");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(destinos);
+        }
         return ResponseEntity.status(HttpStatus.OK).body(destinoRepository.findAllByAtivoTrue(page));
     }
 

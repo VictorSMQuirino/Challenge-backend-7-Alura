@@ -9,4 +9,6 @@ public interface DestinoRepository extends JpaRepository<Destino, Long> {
     Page<Destino> findAllByAtivoTrue(Pageable page);
 
     Destino getReferenceByIdAndAtivoTrue(Long id);
+
+    Page<Destino> findAllByNomeContainingAndAtivoTrue(String busca, Pageable page);
 }

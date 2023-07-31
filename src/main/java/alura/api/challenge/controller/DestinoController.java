@@ -25,8 +25,8 @@ public class DestinoController {
     }
 
     @GetMapping
-    public ResponseEntity listar(@PageableDefault(page = 0, size = 10) Pageable page){
-        return destinoService.listar(page);
+    public ResponseEntity listar(@PageableDefault(page = 0, size = 10) Pageable page, @RequestParam(name = "nome", required = false) String busca){
+        return destinoService.listar(page, busca);
     }
 
     @GetMapping("/{id}")
