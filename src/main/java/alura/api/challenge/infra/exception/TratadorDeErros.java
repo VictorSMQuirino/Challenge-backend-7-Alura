@@ -22,6 +22,11 @@ public class TratadorDeErros {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erros.stream().map(DadosErroValidacao::new).toList());
     }
 
+    @ExceptionHandler(RegistroInativoException.class)
+    public ResponseEntity tratarErroRegistroInativo(RegistroInativoException ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
     public record DadosErroValidacao(String campo, String mensagem){
         public DadosErroValidacao(FieldError erro){
             this(erro.getField(), erro.getDefaultMessage());
