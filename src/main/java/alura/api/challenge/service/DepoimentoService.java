@@ -4,6 +4,7 @@ import alura.api.challenge.domain.dto.DadosAtualizacaoDepoimento;
 import alura.api.challenge.domain.dto.DadosCadastroDepoimento;
 import alura.api.challenge.domain.dto.DadosDetalhamentoDepoimento;
 import alura.api.challenge.domain.model.Depoimento;
+import alura.api.challenge.infra.exception.RegistroInativoException;
 import alura.api.challenge.repository.DepoimentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,22 +33,31 @@ public class DepoimentoService {
     }
 
     public ResponseEntity buscarPorId(Long id) {
-        var depoimento = depoimentoRepository.getReferenceById(id);
+        var depoimento = depoimentoRepository.getReferenceByIdAndAtivoTrue(id);
+        if(depoimento == null){
+            throw new RegistroInativoException("Depoimento não encontrado!");
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(new DadosDetalhamentoDepoimento(depoimento));
     }
 
     public ResponseEntity atualizar(DadosAtualizacaoDepoimento dados) {
-        var depoimento = depoimentoRepository.getReferenceById(dados.id());
-
+        var depoimento = depoimentoRepository.getReferenceByIdAndAtivoTrue(dados.id());
+        if(depoimento == null){
+            throw new RegistroInativoException("Depoimento não encontrado!");
+        }
         depoimento.atualizar(dados);
+
         return ResponseEntity.status(HttpStatus.OK).body(new DadosDetalhamentoDepoimento(depoimento));
     }
 
     public ResponseEntity excluir(Long id) {
-        var depoimento = depoimentoRepository.getReferenceById(id);
-
+        var depoimento = depoimentoRepository.getReferenceByIdAndAtivoTrue(id);
+        if(depoimento == null){
+            throw new RegistroInativoException("Depoimento não encontrado!");
+        }
         depoimento.excluir();
+
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new DadosDetalhamentoDepoimento(depoimento));
     }
 
