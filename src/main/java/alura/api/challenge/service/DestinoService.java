@@ -63,6 +63,6 @@ public class DestinoService {
         }
         destino.excluir();
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new DadosDetalhamentoDestino(destino));
     }
 }
