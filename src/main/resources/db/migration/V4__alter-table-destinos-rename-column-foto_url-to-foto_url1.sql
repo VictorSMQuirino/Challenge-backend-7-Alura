@@ -1,0 +1,1 @@
+alter table destinos rename column foto_url to foto_url1;
