@@ -2,12 +2,14 @@ package alura.api.challenge.service;
 
 import com.theokanning.openai.completion.CompletionRequest;
 import com.theokanning.openai.service.OpenAiService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GeraTextoDescritivoService {
 
-    private static final String API_KEY = "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";
+    @Value("${chatgpt.api.key}")
+    private String API_KEY;
     public String geraTextoDescritivo(String destino){
         OpenAiService service = new OpenAiService(API_KEY);
 
