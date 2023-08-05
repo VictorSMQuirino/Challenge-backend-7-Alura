@@ -19,8 +19,16 @@ public class DestinoService {
 
     @Autowired
     private DestinoRepository destinoRepository;
+
+    @Autowired
+    private GeraTextoDescritivoService geraTextoDescritivoService;
+
     public ResponseEntity salvar(DadosCadastroDestino dados) {
-        var destino =  new Destino(dados);
+        String texto = null;
+        if(dados.texto_descritivo().isBlank()){
+            texto = geraTextoDescritivoService.geraTextoDescritivo(dados.nome());
+        }
+        var destino =  new Destino(dados, texto);
         destinoRepository.save(destino);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new DadosDetalhamentoDestino(destino));

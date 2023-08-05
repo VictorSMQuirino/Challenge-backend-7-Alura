@@ -28,13 +28,13 @@ public class Destino {
     private String texto_descritivo;
     private Boolean ativo;
 
-    public Destino(DadosCadastroDestino dados) {
+    public Destino(DadosCadastroDestino dados, String texto) {
         this.foto_url1 = dados.foto_url1();
         this.foto_url2 = dados.foto_url2();
         this.nome = dados.nome();
         this.meta = dados.meta();
         this.preco = dados.preco();
-        this.texto_descritivo = dados.texto_descritivo();
+        this.texto_descritivo = texto;
         this.ativo = true;
     }
 
