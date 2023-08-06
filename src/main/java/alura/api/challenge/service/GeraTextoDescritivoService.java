@@ -24,6 +24,6 @@ public class GeraTextoDescritivoService {
                 .build();
 
         var response = service.createCompletion(request);
-        return response.getChoices().get(0).getText();
+        return response.getChoices().get(0).getText().replace("\n", "").trim();
     }
 }
