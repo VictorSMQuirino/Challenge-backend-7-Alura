@@ -24,8 +24,8 @@ public class DestinoService {
     private GeraTextoDescritivoService geraTextoDescritivoService;
 
     public ResponseEntity salvar(DadosCadastroDestino dados) {
-        String texto = null;
-        if(dados.texto_descritivo().isBlank()){
+        String texto = dados.texto_descritivo();
+        if(texto.isBlank()){
             texto = geraTextoDescritivoService.geraTextoDescritivo(dados.nome());
         }
         var destino =  new Destino(dados, texto);
